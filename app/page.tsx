@@ -7,15 +7,14 @@ export default function Home() {
   const [animeId, setAnimeId] = useState<string>("");
   const [episode, setEpisode] = useState<string>("");
   const [skip, setSkip] = useState<string>("0");
+  const [iframeUrl, setIframeUrl] = useState<string>("");
 
   const animeUrl: string = "https://vidsrc.icu/embed/anime";
 
-  const getEmbedUrl = () => {
-    // Check if animeId and episode are both non-empty strings
+  const handleEnterKey = () => {
     if (animeId.trim() !== "" && episode.trim() !== "") {
-      return `${animeUrl}/${animeId}/${episode}/${skip}`;
+      setIframeUrl(`${animeUrl}/${animeId}/${episode}/${skip}`);
     }
-    return ""; // Return an empty string if conditions are not met
   };
 
   const onInputChange = (field: string, eventValue: any) => {
@@ -26,9 +25,6 @@ export default function Home() {
     } else if (field === "skip") {
       setSkip(eventValue);
     }
-
-    // You can remove the console.log here or keep it for debugging
-    console.log(animeId, episode);
   };
 
   return (
@@ -46,6 +42,7 @@ export default function Home() {
             value={animeId}
             placeholder="Anime ID"
             onChange={(e) => onInputChange("animeId", e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleEnterKey()}
             className="bg-transparent w-1/2 md:w-1/5 h-[3rem] text-2xl border-white border rounded-tl-xl rounded-bl-xl outline-white outline-2 text-white text-center font-[Poppins]"
           />
           <input
@@ -53,23 +50,20 @@ export default function Home() {
             value={episode}
             placeholder="Episode"
             onChange={(e) => onInputChange("episode", e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleEnterKey()}
             className="bg-transparent w-1/2 md:w-1/5 h-[3rem] text-2xl border-white border-t border-b border-r rounded-tr-xl rounded-br-xl outline-white text-white text-center font-[Poppins]"
           />
-          {/* Uncomment this input for skip if needed */}
-          {/* <input
-            type="number"
-            value={skip}
-            placeholder="Skip"
-            min={0}
-            max={1}
-            onChange={(e) => onInputChange("skip", e.target.value)}
-            className="bg-transparent w-1/5 h-[3rem] text-2xl border-white border rounded-tr-xl rounded-br-xl outline-white text-white text-center font-[Poppins]"
-          /> */}
+          <button
+            onClick={handleEnterKey}
+            className="bg-pink-500 text-white h-[3rem] font-[Poppins] rounded-xl px-4 mx-4 text-2xl hover:bg-pink-600 transition-colors"
+          >
+            Load Illegal Anime
+          </button>
         </div>
         <div className="bg-transparent rounded-xl w-full h-[20rem] xl:w-1/2 md:h-[60%] mt-10 font-[Poppins] flex justify-center text-2xl ">
-          {getEmbedUrl() ? ( // Only show iframe if getEmbedUrl returns a non-empty string
+          {iframeUrl ? ( // Only show iframe if iframeUrl is set
             <iframe
-              src={getEmbedUrl()}
+              src={iframeUrl}
               allowFullScreen
               className="w-full h-full"
               scrolling="no"
