@@ -29,7 +29,7 @@ export default function Home() {
 
   return (
     <>
-      <div className="h-screen w-full flex flex-col justify-center items-center bg-[#0a0a0a]">
+      <div className="h-screen w-full flex flex-col justify-center items-center">
         <h1 className="font-[Poppins] text-3xl text-white">
           edu<span className="text-pink-500">anime</span>
         </h1>
@@ -53,13 +53,13 @@ export default function Home() {
             onKeyDown={(e) => e.key === "Enter" && handleEnterKey()}
             className="bg-transparent w-1/2 md:w-1/5 h-[3rem] text-2xl border-white border-t border-b border-r rounded-tr-xl rounded-br-xl outline-white text-white text-center font-[Poppins]"
           />
-          <button
-            onClick={handleEnterKey}
-            className="bg-pink-500 text-white h-[3rem] font-[Poppins] rounded-xl px-4 mx-4 text-2xl hover:bg-pink-600 transition-colors"
-          >
-            Load Illegal Anime
-          </button>
         </div>
+        <button
+          onClick={handleEnterKey}
+          className="bg-pink-500 text-white h-[3rem] mt-4 font-[Poppins] rounded-xl px-4 mx-4 text-2xl hover:bg-pink-600 transition-colors"
+        >
+          Load Illegal Anime
+        </button>
         <div className="bg-transparent rounded-xl w-full h-[20rem] xl:w-1/2 md:h-[60%] mt-10 font-[Poppins] flex justify-center text-2xl ">
           {iframeUrl ? ( // Only show iframe if iframeUrl is set
             <iframe
@@ -69,7 +69,7 @@ export default function Home() {
               scrolling="no"
             ></iframe>
           ) : (
-            <div className="flex flex-col">
+            <div className="flex flex-col px-5">
               <p className="text-white font-bold">
                 Step 1:{" "}
                 <span className="font-normal">
